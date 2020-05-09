@@ -4,19 +4,19 @@ const datafile = require("./data/characters.json");
 const characterCount = datafile.length;
 
 function databaseInitialize() {
-  console.log("🏁 Creating database ...");
+  console.log("🏁  Creating database ...");
   const characters = db.addCollection("characters");
   loadData(characters);
 }
 
 function loadData(collection) {
-  console.log(`✍️ Inserting ${characterCount} docs ...`);
+  console.log(`✍️  Inserting ${characterCount} docs ...`);
   try {
-    datafile.forEach(character => {
+    datafile.forEach((character) => {
       collection.insert(character);
     });
   } catch (error) {
-    console.log("❌ Insert was not successful", error);
+    console.log("❌  Insert was not successful", error);
   }
   testData(collection);
 }
@@ -29,7 +29,7 @@ function testData(collection) {
     console.log(`✅ ${count} documents successfully inserted`);
   } else {
     console.log(
-      `❌ Mismatch in document count (total: ${count} vs ${characterCount}. Insert probably failed`
+      `❌  Mismatch in document count (total: ${count} vs ${characterCount}. Insert probably failed`
     );
   }
 }
@@ -37,5 +37,5 @@ function testData(collection) {
 databaseInitialize();
 
 module.exports = {
-  db
+  db,
 };
