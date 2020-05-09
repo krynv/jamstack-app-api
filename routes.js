@@ -10,14 +10,15 @@ const character = (req, res) => {
   let { id } = req.params;
   id = parseInt(id);
   const character = charactersCollection.find({
-    $loki: id
+    $loki: id,
   });
   return res.json(character).status(200);
 };
 
 const favourites = (req, res) => {
+  console.log("reached here");
   const favourites = charactersCollection.find({
-    alliance: "Galactic Empire"
+    alliance: "Galactic Empire",
   });
   return res.json(favourites).status(200);
 };
@@ -25,5 +26,5 @@ const favourites = (req, res) => {
 module.exports = {
   characters,
   character,
-  favourites
+  favourites,
 };

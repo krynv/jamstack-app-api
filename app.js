@@ -16,20 +16,20 @@ const errorHandler = (err, req, res, next) => {
   }
 };
 
-const auth = jwt(
-  {
-    secret: jwksRsa.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 5,
-      jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
-    }),
-    audience: process.env.AUTH0_API_IDENTIFIER,
-    issuer: `https://${process.env.AUTH0_DOMAIN}`,
-    algorithms: ["RS256"],
-  },
-  errorHandler
-);
+const auth = jwt({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    reateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
+  }),
+  audience: process.env.AUTH0_API_IDENTIFIER,
+  algorithm: ["RS256"],
+});
+
+app.get("/api/characters", routes.characters);
+app.get("/api/characters/:id", routes.character);
+app.get("/api/favourites", auth, routes.favourites);
 
 app.get("/api/characters", routes.characters);
 app.get("/api/characters/:id", routes.character);
